@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.emp.mapper.EmpMapper">
+<!-- id = 메소드 이름, return 타입을 받을 타입도 선정해줘야함
+파라미터를 VO로 넘기면 필드명을 #대괄호로 감싸주면 필드명을 기준으로 값을 가져옴 -->
+	<select id="getEmp" parameterType="EmpVO" resultType="EmpVO">
+	
+	SELECT employee_id,
+	 first_name,
+	 last_name,
+	 email,
+	 hire_date,
+	 job_id,
+	 department_id,
+	 salary
+	FROM employees
+	WHERE employee_id= #{employeeId}
+	
+	</select>
+</mapper>
