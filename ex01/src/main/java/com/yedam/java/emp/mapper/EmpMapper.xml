@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.java.emp.mapper.EmpMapper">
+
+	<select id="getEmpList" resultType="EmpVO">
+		select * from employees
+		<where>
+			<if test="departmentId !=null">
+				department_id=#{departmentId} AND
+			</if>
+			<if test="manerId!=null">
+				manager_id=#{managerId}
+			</if>
+			<!-- <where>절 안에서 <if>문 안쓰고도 조건을 기재해줄 수 있음 -->
+			job_id=#{jobId}
+		</where>
+	</select>
+
+	<select id="getEmp" parameterType="EmpVO" resultType="EmpVO">
+		SELECT
+		employee_id,
+		first_name,
+		last_name,
+		<if test="!employeeId.equals('100')">
+		email,
+		</if>
+		hire_date,
+		job_id,
+		salary
+		FROM
+		employees
+		WHERE employee_id = #{employeeId}
+	</select>
+
+	<insert id="insertEmp" parameterType="EmpVO">
+		<!-- insert, update -->
+		<selectKey keyProperty="employeeId" resultType="String"
+			order="BEFORE">
+			SELECT MAX(employee_id)+1 FROM employees
+		</selectKey>
+		INSERT INTO employees (employee_id, first_name, last_name, email,
+		hire_date, job_id, salary)
+		VALUES (#{employeeId}, #{firstName},
+		#{lastName}, #{email}, sysdate,
+		#{jobId}, #{salary})
+	</insert>
+
+	<!-- 자동으로 파라메터 타입 생성 -->
+	<update id="updateSalary" parameterType="Integer">
+		UPDATE employees
+		SET salary = salary *1.1
+		WHERE employee_id= #{empId}
+		<!--employee_id= #{employeeId} 위는 Param값을 넘겨준 경우, 주석처리한 경우는 방법 1 -->
+	</update>
+	
+	<!-- 수정 : 사원정보를 넘겨받아서 이름과 성, 이메일을 수정할 수 있는 메소드 -->
+	<update id="updateInfo" parameterType="EmpVO">
+		UPDATE employees
+		<!-- SET last_name=#{lastName}, 
+			first_name=#{firstName}, 
+			email=#{email} -->
+			<set>
+			<!-- if test 사용, 이때는 #이 붙지 않음  -->
+				<if test="firstName !=null">first_name=#{firstName},</if>
+				<if test="lastName !=null">last_name=#{lastName},</if>
+				<if test="email !=null">email=#{email}</if>
+			</set>
+		WHERE employee_id= #{employeeId}
+		
+	</update>
+	
+	
+
+	<!-- <delete id=""></delete> -->
+
+
+	<!-- update,delete,insert는 select될타입이 없기때문에 혼용해도 상관 ㄴㄴ 임 근데 해당 세가지 안에서 select를 
+		사용하는 것은 절대불가 반환되는 값을 받을 수가 없음! -->
+
+</mapper>
+<!-- parameterType = 매개변수이고, resultType 은 반드시 있어야함! -->
