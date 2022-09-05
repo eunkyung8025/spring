@@ -5,21 +5,22 @@
 <mapper namespace="com.yedam.java.emp.mapper.EmpMapper">
 
 	<select id="getEmpList" resultType="EmpVO">
-		select * from employees
-		<where>
+		select * from employees order by 1 desc
+<!-- 		<where>
 			<if test="departmentId !=null">
 				department_id=#{departmentId} AND
 			</if>
 			<if test="manerId!=null">
 				manager_id=#{managerId}
 			</if>
-			<!-- <where>절 안에서 <if>문 안쓰고도 조건을 기재해줄 수 있음 -->
+			<where>절 안에서 <if>문 안쓰고도 조건을 기재해줄 수 있음
 			job_id=#{jobId}
-		</where>
+		</where> -->
 	</select>
 
 	<select id="getEmp" parameterType="EmpVO" resultType="EmpVO">
-		SELECT
+		SELECT * 
+<!-- 주석처리하고 * 아스타로 바꿈
 		employee_id,
 		first_name,
 		last_name,
@@ -28,7 +29,7 @@
 		</if>
 		hire_date,
 		job_id,
-		salary
+		salary -->
 		FROM
 		employees
 		WHERE employee_id = #{employeeId}
@@ -40,11 +41,11 @@
 			order="BEFORE">
 			SELECT MAX(employee_id)+1 FROM employees
 		</selectKey>
-		INSERT INTO employees (employee_id, first_name, last_name, email,
-		hire_date, job_id, salary)
+		INSERT INTO employees (employee_id, first_name, last_name, email, phone_number,
+		hire_date, job_id, salary, commission_pct, manager_id, department_id)
 		VALUES (#{employeeId}, #{firstName},
-		#{lastName}, #{email}, sysdate,
-		#{jobId}, #{salary})
+		#{lastName}, #{email}, #{phoneNumber}, sysdate,
+		#{jobId}, #{salary}, #{commissionPct}, #{managerId}, departmentId)
 	</insert>
 
 	<!-- 자동으로 파라메터 타입 생성 -->
@@ -73,7 +74,10 @@
 	
 	
 
-	<!-- <delete id=""></delete> -->
+	<delete id="deleteEmpInfo" parameterType="Integer">
+		DELETE FROM employees
+		WHERE employee_id=#{employeeId}	
+	</delete> 
 
 
 	<!-- update,delete,insert는 select될타입이 없기때문에 혼용해도 상관 ㄴㄴ 임 근데 해당 세가지 안에서 select를 
