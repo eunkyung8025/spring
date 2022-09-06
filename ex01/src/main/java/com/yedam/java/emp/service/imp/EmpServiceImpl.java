@@ -14,11 +14,10 @@ public class EmpServiceImpl implements EmpService {
 
 	@Autowired
 	EmpMapper empMapper;
-	
-	
+
 	@Override
 	public List<EmpVO> getEmpList() {
-		//데이터 연산
+		// 데이터 연산
 		return empMapper.getEmpList();
 	}
 
@@ -29,21 +28,19 @@ public class EmpServiceImpl implements EmpService {
 
 	@Override
 	public void insertEmp(EmpVO empVO) {
-		// TODO Auto-generated method stub
-		
+		empMapper.insertEmp(empVO);
 	}
 
 	@Override
 	public void updateEmp(EmpVO empVO) {
 		empMapper.updateInfo(empVO);
-		
+
 	}
 
 	@Override
 	public void deleteEmp(EmpVO empVO) {
 		empMapper.deleteEmpInfo(Integer.parseInt(empVO.getEmployeeId()));
-		
+
 	}
 
-	
 }

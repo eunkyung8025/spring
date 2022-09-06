@@ -51,14 +51,13 @@ public class EmpController {
 	}
 	
 	@GetMapping("/insertForm")
-	public String insertRorm(EmpVO empVO) {
-		empService.insertEmp(empVO);
-		return "emp/insertForm";
+	public String insertEmpForm(EmpVO empVO) {
+		return "emp/empInsert";
 	}
 	
 	
-	@GetMapping("/insertInfo")
-	public String insertInfo(EmpVO empVO) {
+	@PostMapping("/insertInfo")
+	public String insertEmpInfo(EmpVO empVO) {
 		empService.insertEmp(empVO);
 		return "redirect:allList";
 	}

@@ -16,6 +16,7 @@
 <title>전체조회</title>
 </head>
 <body>
+	<button type="button" onclick="location.href='insertForm'">등록</button>
 	<table>
 		<thead>
 			<tr>
@@ -43,7 +44,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<button type="button" onclick="location.href='insertForm?'">등록</button>
 	
 	
 

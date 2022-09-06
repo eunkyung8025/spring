@@ -41,11 +41,11 @@
 			order="BEFORE">
 			SELECT MAX(employee_id)+1 FROM employees
 		</selectKey>
-		INSERT INTO employees (employee_id, first_name, last_name, email, phone_number,
-		hire_date, job_id, salary, commission_pct, manager_id, department_id)
+		INSERT INTO employees (employee_id, first_name, last_name, email,
+		hire_date, job_id, salary)
 		VALUES (#{employeeId}, #{firstName},
-		#{lastName}, #{email}, #{phoneNumber}, sysdate,
-		#{jobId}, #{salary}, #{commissionPct}, #{managerId}, departmentId)
+		#{lastName}, #{email}, sysdate,
+		#{jobId}, #{salary})
 	</insert>
 
 	<!-- 자동으로 파라메터 타입 생성 -->
