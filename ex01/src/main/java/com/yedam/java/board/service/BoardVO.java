@@ -20,5 +20,10 @@ public class BoardVO {
 	private Date updatedate; //가장 최근에 수정한 날짜
 	private String image;
 	
+	
+	//
+	
+	
+	
 
 }

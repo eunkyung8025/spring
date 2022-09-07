@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- dtd 정보 가져온 곳 : https://tiles.apache.org/framework/tutorial/basic/pages.html > create definition -->
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+								<!-- template : 고정된 템플릿을 기반으로 어느템플릿을 기반으로 하겟다는 것 -->
+	<definition name="mainTemplate" template="/WEB-INF/views/tiles/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp"></put-attribute>
+	</definition>
+	
+	<!-- 실질적으로 작동하는 것은 extends (헤당 내용을 땡겨오겠다는 것?)-->
+	<definition name="home" extends="mainTemplate">
+		<put-attribute name="main" value="/WEB-INF/views/home.jsp"></put-attribute>
+	</definition>
+	
+	<!-- 경우의 수를 높일 때는 * 아스타를 이용해 아래와 같이 셋팅해줌 -->
+	
+	
+	<!-- 컨트롤러가 반환하는 값 : name -->
+	<definition name="admin/*" extends="adminTemplate">
+		<put-attribute name="content" value="/WEB-INF/user1/{1}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="*/*" extends="mainTemplate">
+		<!-- 컨트롤러에서 board/list라고 하면, 알아서 jsp를 찾아옴 */* 아스타가 두개라서 두번까지 쓸수 잇음, 아스타가 잴 밑에 배치시킴-->
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp" />
+		                            <!-- /WEB-INF/views/board/list.jsp -->
+	</definition>
+
+
+</tiles-definitions>       

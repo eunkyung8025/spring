@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.java.book.mapper.BookMapper">
+
+	<!-- 입력될 도서 번호 조회 -->
+	<select id="getBookNo" resultType="BookVO">
+		SELECT NVL(MAX(book_no), 0)+1 as book_no from BOOK_TBL_06
+	</select>
+
+	<!-- 전체조회 -->
+	<select id="getBookList" resultType="BookVO">
+		SELECT * FROM BOOK_TBL_06 ORDER BY BOOK_NO
+	</select>
+
+	<!-- 도서등록 -->
+	<insert id ="insertBook" parameterType="BookVO">
+		INSERT INTO BOOK_TBL_06 VALUES (
+					BOOK_NO
+					, BOOK_NAME
+					, book_COVERIMG
+					, BOOK_DATE
+					, BOOK_PRICE
+					, bookPublisher
+					, bookInfo	
+					)
+			VALUES (
+				${bookNo}
+				, ${bookName}
+				, ${bookCoverImg}
+				, ${bookDate}
+				, ${bookPrice}
+				, ${bookPublisher} 
+				, ${bookInfo}
+			)				
+	</insert>
+	
+	<!-- 대여 현황조회 -->
+	<select id="getRentalList" resultType="BookVO">
+		select a.book_no, a.book_name, 
+		sum(b.rent_price) as 대여총계, count(b.rent_status) as 대여횟수 
+		from BOOK_TBL_06 a JOIN RENT_TBL_06 b 
+		where a.book_no=b.book_no
+		group by book_no) ;
+	</select>
+
+</mapper>

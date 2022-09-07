@@ -19,10 +19,23 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="2"></beans:property>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.yedam.java" />
+	<!-- ● 설정 파일등록하는 클래스 : TilesConfigurer  -->
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/tiles.xml</beans:value>				
+			</beans:list>		
+		</beans:property>	
+	</beans:bean>
 	
+	<!-- ● 동작할 bean을 만들어줌 : tilesViewResolver 설정파일을 받아와야하는 데 별도의 bean으로 관리를 함-->
+	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+	<!-- 무엇이 우선적으로 동작할지 지정해줘야함 (order) -->
+		<beans:property name="order" value="1"></beans:property>
 	
-	
+	</beans:bean>
+	<context:component-scan base-package="com.yedam.java" />	
 </beans:beans>

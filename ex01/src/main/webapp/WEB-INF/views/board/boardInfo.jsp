@@ -29,7 +29,11 @@
 		</tr>
       <tr>
          <th>첨부파일</th>
+      
          <td><img src="<c:url value="/resources/images/"${board.image}" />" alt="이미지"></td>
+         <!-- // ${pageContext.request.contextPath}/resources/imagaes/${board.image} -->
+      
+      
       </tr>
 
 			<th>작성일자</th>

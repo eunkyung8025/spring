@@ -18,6 +18,8 @@
 		<!-- 4. aspectj-version 변경 (1.6.10 → 1.9.0) -->
 		<org.aspectj-version>1.9.0</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<!-- 16-17. tiles는 같은버전으로 움직여야 해서 properties 적용해줌 -->
+		<org.apache.tiles-version>3.0.8</org.apache.tiles-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -202,6 +204,19 @@
 			<version>2.0.7</version>
 		</dependency>
 
+		<!-- 16. tiles-core (properties 추가 후, 3.0.8 → ${org.apache.tiles-version} )-->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-core</artifactId>
+			<version>${org.apache.tiles-version}</version>
+		</dependency>
+
+		<!-- 17. tiles-extras -->
+		<dependency>
+			<groupId>org.apache.tiles</groupId>
+			<artifactId>tiles-extras</artifactId>
+			<version>${org.apache.tiles-version}</version>
+		</dependency>
 
 
 	</dependencies>
